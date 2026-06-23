@@ -197,7 +197,7 @@ useEffect(() => {
 
       
         <ambientLight intensity={6} />
-        <ModelDrink ref={modelRef} position={[isTabletOrMobile ? 3: 0, 0, isTabletOrMobile ? -4 : 4]} scale={1} />
+        <ModelDrink ref={modelRef} position={[isTabletOrMobile ? 3: 0, 0, isTabletOrMobile ? -4 : 4]} rotation={[0,0,0]} scale={1} />
         <Environment preset="city" />
         <directionalLight position={[5, 5, 5]} intensity={2} />
         <pointLight position={[-5, -5, -5]} intensity={1} />
