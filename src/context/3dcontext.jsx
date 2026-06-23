@@ -1,4 +1,4 @@
-import {createContext, useRef,useContext, useCallback, useState} from 'react';
+import {createContext, useRef,useContext, useState, useEffect} from 'react';
 
 const ThemeContext = createContext(null);
 
@@ -16,14 +16,14 @@ export const ThemeProvider = ({children}) => {
     const modelRef = useRef(null);
     const red = 10
 
-     const setSupraRef = useCallback((node) => {
-        modelRef.current = node;
-        if (node) setModelReady(true);
-        }, []);
-
+        useEffect(() => {
+    if (modelRef.current) {
+        modelRef.current.rotation.set(0, 1.5, 0) // adjust this value
+    }
+    }, [modelRef.current])
 
     return(
-        <ThemeContext.Provider value={{canRef, red, modelRef,modelReady, setSupraRef,isSection2Visible, setIsSection2Visible}}>
+        <ThemeContext.Provider value={{canRef, red, modelRef,modelReady,isSection2Visible, setIsSection2Visible}}>
             {children}
         </ThemeContext.Provider>
     )
