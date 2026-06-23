@@ -25,6 +25,9 @@
   display: none; /* Chrome, Safari, Opera */
 }
 
+:root {
+  --vh: 1vh;
+}
 
 body{
    background:  #ffffff;

@@ -14,7 +14,7 @@ import '@fontsource/bebas-neue';
 import Snow from './3dcomponents/Snow'
 import { Suspense } from 'react'
 import  Loader from "./components/Loader.jsx"
-import { useState } from 'react';
+import { useState ,useEffect} from 'react';
 
 
 
@@ -23,6 +23,48 @@ gsap.registerPlugin( ScrollTrigger );
 
 
 const App = () => {
+
+  useEffect(() => {
+  if (!isTabletOrMobile) return
+
+  // ignore resize events caused by chrome toolbar on mobile
+  let timeout
+  const originalRefresh = ScrollTrigger.refresh.bind(ScrollTrigger)
+
+  window.addEventListener('resize', () => {
+    clearTimeout(timeout)
+    timeout = setTimeout(() => {
+      if (window.innerWidth === window.screen.width) {
+        // only refresh if width changed (real resize, not toolbar)
+        originalRefresh()
+      }
+    }, 200)
+  })
+
+  return () => clearTimeout(timeout)
+}, [isTabletOrMobile])
+
+
+useEffect(() => {
+  const setVh = () => {
+    // only update on real width change, ignore toolbar height change
+    const vh = window.innerHeight * 0.01
+    document.documentElement.style.setProperty('--vh', `${vh}px`)
+  }
+
+  let lastWidth = window.innerWidth
+  const handleResize = () => {
+    if (window.innerWidth !== lastWidth) {
+      lastWidth = window.innerWidth
+      setVh()
+    }
+    // if only height changed (toolbar), do nothing
+  }
+
+  setVh()
+  window.addEventListener('resize', handleResize)
+  return () => window.removeEventListener('resize', handleResize)
+}, [])
 
 
    const [appLoaded, setAppLoaded] = useState(false)
@@ -111,12 +153,14 @@ const App = () => {
   return () => clearInterval(interval)  // cleanup
 })
 
+
+
   return (
-    <div style={{ overflow: appLoaded ? 'auto' : 'hidden' }}>
+    <div style={{ overflow: appLoaded ? 'auto' : 'hidden' }} >
         <Loader onLoaded={() => setAppLoaded(true)} />
      <div ref={sectionRef} style={{
         width: '100%',
-        height: '100dvh',}}>
+         height: 'calc(var(--vh, 1vh) * 100)'}}>
           <div ref={containerRef} className="rb-container">
         <div className="rb-row">
           <span className="rb-main">RUN</span>
