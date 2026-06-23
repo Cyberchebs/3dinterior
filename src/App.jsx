@@ -143,7 +143,11 @@ const App = () => {
         </div>
       </div>
       <div className="canvas-container">
-      <Canvas camera={{ position: [0, 0, 40], fov: 50 }}>
+      <Canvas 
+        camera={{ position: [0, 0, 40], fov: 50 }}
+        dpr={[1, isTabletOrMobile ? 1 : 1.5]}
+        gl={{ powerPreference: 'high-performance', antialias: !isTabletOrMobile }}
+      >
 
       
         <ambientLight intensity={6} />
@@ -156,7 +160,7 @@ const App = () => {
        {isSection2Visible && (
         <group  visible={isSection2Visible}>
           <ambientLight intensity={0.5} />
-            <Snow count={300} />
+            <Snow count={80} />
           <Modelcube position={[isTabletOrMobile ? -6 : 25,isTabletOrMobile ? 11 : 5, 1]} scale={13} />
           <Modelcube position={[isTabletOrMobile ? -4 :-20,isTabletOrMobile ? -7 :-10,6]} scale={isTabletOrMobile ? 10 :15} />
           <Modelcube position={[isTabletOrMobile ? 7 :20, isTabletOrMobile ? -14:-10,6]} scale={20} />

@@ -12,6 +12,7 @@ import { useRef, useMemo } from 'react'
 import {useTheme} from '../context/3dcontext.jsx'
 import { useFrame } from '@react-three/fiber'
 
+
 export default function Modelcube(props) {
 
   const {isSection2Visible} = useTheme();
@@ -23,12 +24,12 @@ export default function Modelcube(props) {
          <MeshTransmissionMaterial  
      backside
     backsideThickness={0.3}
-    samples={4}
+    samples={1}
     thickness={0.3}
     roughness={0.0}
     transmission={1}
     ior={1.31}
-    chromaticAberration={0.03}
+    chromaticAberration={0}
     distortion={0.1}
     distortionScale={0.05}
     temporalDistortion={0}

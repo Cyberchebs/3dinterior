@@ -4,6 +4,7 @@ import * as THREE from 'three'
 
 export default function Snow({ count = 200 }) {
   const mesh = useRef()
+  const isMobile = window.innerWidth < 1224
 
   const particles = useMemo(() => {
     const positions = new Float32Array(count * 3)
@@ -30,6 +31,10 @@ export default function Snow({ count = 200 }) {
 
     for (let i = 0; i < count; i++) {
       positions[i * 3 + 1] -= particles.speeds[i]  // fall down
+
+        if (!isMobile) {
+      positions[i * 3] += Math.sin(Date.now() * 0.001 + i) * 0.01
+    }
 
       // drift slightly side to side
       positions[i * 3] += Math.sin(Date.now() * 0.001 + i) * 0.01
