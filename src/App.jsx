@@ -24,6 +24,8 @@ gsap.registerPlugin( ScrollTrigger );
 
 const App = () => {
 
+   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' })
+
   useEffect(() => {
   if (!isTabletOrMobile) return
 
@@ -71,7 +73,7 @@ useEffect(() => {
   const { modelRef,isSection2Visible, setIsSection2Visible} = useTheme();
   const sectionRef = useRef(null);
   const containerRef = useRef(null);
-   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' })
+  
 
   useGSAP(()=>{
 
