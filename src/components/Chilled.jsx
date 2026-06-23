@@ -21,12 +21,12 @@ const Chilled = () => {
         />
       <div>
        <h1 style={{
-          fontFamily: "'Bebas Neue', sans-serif",
-          fontSize: isTabletOrMobile ? '60px' : '120px',
-          letterSpacing: isTabletOrMobile ? '3px' : '6px',
+         fontFamily: "'MonsterEnergy', sans-serif",
+          fontSize: isTabletOrMobile ? '40px' : '120px',
+          letterSpacing: isTabletOrMobile ? '1px' : '4px',
           position: 'absolute',
-          top: isTabletOrMobile ? '18%' : '25%',
-          left: isTabletOrMobile ? '78%' : '23%',
+          top: isTabletOrMobile ? '18%' : '27%',
+          left: isTabletOrMobile ? '78%' : '30%',
           transform: 'translate(-50%, -50%)',
           margin: 0,
           color: 'white',

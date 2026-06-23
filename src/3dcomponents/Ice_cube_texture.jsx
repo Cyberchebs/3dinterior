@@ -8,36 +8,51 @@ Title: Ice Cube Texture
 */
 
 import { useGLTF, MeshTransmissionMaterial  } from '@react-three/drei'
-import { useRef } from 'react'
+import { useRef, useMemo } from 'react'
+import {useTheme} from '../context/3dcontext.jsx'
 import { useFrame } from '@react-three/fiber'
 
 export default function Modelcube(props) {
-  const group = useRef()
-  const { nodes, materials } = useGLTF('/models/ice_cube_texture.glb')
 
-   useFrame(() => {
-    if (group.current) {
-      group.current.rotation.y += 0.01; // Adjust the rotation speed as needed
+  const {isSection2Visible} = useTheme();
+  const group = useRef()
+
+  const { nodes } = useGLTF('/models/ice_cube_texture.glb')
+
+  const cubeMaterials = useMemo(()=>(
+         <MeshTransmissionMaterial  
+     backside
+    backsideThickness={0.3}
+    samples={4}
+    thickness={0.3}
+    roughness={0.0}
+    transmission={1}
+    ior={1.31}
+    chromaticAberration={0.03}
+    distortion={0.1}
+    distortionScale={0.05}
+    temporalDistortion={0}
+    color="#ffffff"
+    envMapIntensity={1.5}
+    attenuationDistance={10}
+    attenuationColor="white"
+    side={2}
+/>
+  ), [])
+
+
+
+  useFrame(() => {
+    if (group.current && isSection2Visible) {
+      group.current.rotation.y += 0.03; // Adjust the rotation speed as needed
     }
   })
   
   return (
     <group {...props} dispose={null} ref={group}>
       <group scale={0.01}>
-        <mesh geometry={nodes['Box001_Material_#25_0'].geometry} material={materials.Material_25} rotation={[-Math.PI / 2, 0, 0]} >
-         <MeshTransmissionMaterial  
-            backside
-            samples={10}
-            thickness={3}
-            roughness={0.001}        // lower = clearer/glossier
-            transmission={0.98}     // closer to 1 = more transparent
-            ior={1.31}              // ice IOR is 1.31 in real life
-            chromaticAberration={0.03}
-            distortion={0.1}        // adds internal distortion like real ice
-            distortionScale={0.2}
-            temporalDistortion={0.1}
-            color="#d0eeff"         // very light icy blue tint
-          />
+        <mesh geometry={nodes['Box001_Material_#25_0'].geometry} rotation={[-Math.PI / 2, 0, 0]} >
+         {cubeMaterials}
         </mesh>
       </group>
     </group>

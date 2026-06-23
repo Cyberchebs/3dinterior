@@ -6,6 +6,7 @@ export const ThemeProvider = ({children}) => {
 
 
     const [modelReady, setModelReady] = useState(false);
+    const [isSection2Visible, setIsSection2Visible] = useState(false)
     
    
 
@@ -22,7 +23,7 @@ export const ThemeProvider = ({children}) => {
 
 
     return(
-        <ThemeContext.Provider value={{canRef, red, modelRef,modelReady, setSupraRef}}>
+        <ThemeContext.Provider value={{canRef, red, modelRef,modelReady, setSupraRef,isSection2Visible, setIsSection2Visible}}>
             {children}
         </ThemeContext.Provider>
     )
